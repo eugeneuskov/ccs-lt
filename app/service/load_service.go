@@ -54,22 +54,9 @@ func (ls *LoadService) StartLoadTest() {
 	i := 1
 
 	for {
-		for j := 1; j <= ls.rps; j++ {
-			switch reqCase := getCase(); reqCase {
-			case caseCurrencies:
-				go ls.requestCurrencies(i)
-			case caseRate:
-				go ls.requestRate(i)
-			case caseByMonth:
-				go ls.requestRateByMonth(i)
-			case caseByDay:
-				go ls.requestRateByDay(i)
-			case caseExchange:
-				go ls.requestExchange(i)
-			}
-		}
+		go ls.requestCurrencies(i)
+		time.Sleep(2500 * time.Microsecond)
 		i++
-		time.Sleep(1 * time.Second)
 	}
 
 }
